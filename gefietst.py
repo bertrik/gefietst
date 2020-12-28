@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-""" Parses google maps timeline JSON files and aggregates distance travelled by a activity """
+""" Parses google maps timeline JSON, aggregates distance for a specific activity """
 
 import os
 import json
 import argparse
+
 
 def parse(file, activity):
     """ parses the given file for activity segment of the given type """
@@ -26,10 +27,12 @@ def parse(file, activity):
                         total_duration_hour += duration_sec / 3600
     return total_distance_km, total_duration_hour
 
+
 def report(desc, distance_km, duration_hour):
     """ reports the description, distance, time and average one a line to stdout """
     average = distance_km / duration_hour
     print(f"{desc:20}: {distance_km:>8.1f} km, {duration_hour:>6.1f} h, {average:>5.1f} km/h")
+
 
 def main():
     """ main entry point, parses arguments and report activity summary to stdout """
@@ -48,6 +51,7 @@ def main():
                 total_duration += duration
     print("---")
     report("Total", total_distance, total_duration)
+
 
 if __name__ == "__main__":
     main()
